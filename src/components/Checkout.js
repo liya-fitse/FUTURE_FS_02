@@ -9,6 +9,7 @@ const Checkout = ({ setCurrentPage }) => {
     address: '',
     city: '',
     zipCode: '',
+    paymentMethod: 'card',
     cardNumber: '',
     expiryDate: '',
     cvv: ''
@@ -131,17 +132,99 @@ const Checkout = ({ setCurrentPage }) => {
           </div>
         </div>
 
-        <div>
-          <input
-            type="text"
-            name="cardNumber"
-            placeholder="Card Number"
-            value={formData.cardNumber}
-            onChange={handleChange}
-            className={`w-full p-2 border rounded ${errors.cardNumber ? 'border-red-500' : ''}`}
-          />
-          {errors.cardNumber && <p className="text-red-500 text-sm">{errors.cardNumber}</p>}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold mb-4" style={{color: '#212529'}}>Payment Method</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.paymentMethod === 'card' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="card"
+                checked={formData.paymentMethod === 'card'}
+                onChange={handleChange}
+                className="sr-only"
+              />
+              <div className="text-center">
+                <div className="text-2xl mb-2">💳</div>
+                <div className="font-medium">Credit Card</div>
+              </div>
+            </label>
+            
+            <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.paymentMethod === 'paypal' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="paypal"
+                checked={formData.paymentMethod === 'paypal'}
+                onChange={handleChange}
+                className="sr-only"
+              />
+              <div className="text-center">
+                <div className="text-2xl mb-2">🅿️</div>
+                <div className="font-medium">PayPal</div>
+              </div>
+            </label>
+            
+            <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.paymentMethod === 'apple' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="apple"
+                checked={formData.paymentMethod === 'apple'}
+                onChange={handleChange}
+                className="sr-only"
+              />
+              <div className="text-center">
+                <div className="text-2xl mb-2">🍎</div>
+                <div className="font-medium">Apple Pay</div>
+              </div>
+            </label>
+            
+            <label className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${formData.paymentMethod === 'google' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+              <input
+                type="radio"
+                name="paymentMethod"
+                value="google"
+                checked={formData.paymentMethod === 'google'}
+                onChange={handleChange}
+                className="sr-only"
+              />
+              <div className="text-center">
+                <div className="text-2xl mb-2">🔍</div>
+                <div className="font-medium">Google Pay</div>
+              </div>
+            </label>
+          </div>
         </div>
+
+        {formData.paymentMethod === 'card' && (
+          <>
+            <div>
+              <input
+                type="text"
+                name="cardNumber"
+                placeholder="Card Number"
+                value={formData.cardNumber}
+                onChange={handleChange}
+                className={`w-full p-2 border rounded ${errors.cardNumber ? 'border-red-500' : ''}`}
+              />
+              {errors.cardNumber && <p className="text-red-500 text-sm">{errors.cardNumber}</p>}
+            </div>
+          </>
+        )}
+
+        {formData.paymentMethod !== 'card' && (
+          <div className="p-6 bg-blue-50 rounded-lg border border-blue-200 text-center">
+            <div className="text-4xl mb-4">
+              {formData.paymentMethod === 'paypal' && '🅿️'}
+              {formData.paymentMethod === 'apple' && '🍎'}
+              {formData.paymentMethod === 'google' && '🔍'}
+            </div>
+            <p className="text-blue-800 font-medium">
+              You will be redirected to {formData.paymentMethod === 'paypal' ? 'PayPal' : formData.paymentMethod === 'apple' ? 'Apple Pay' : 'Google Pay'} to complete your payment.
+            </p>
+          </div>
+        )}
 
         <div className="flex gap-4">
           <div className="flex-1">

@@ -31,7 +31,7 @@ A modern, responsive e-commerce platform built with React.js and Tailwind CSS.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/FUTURE_FS_02.git
+git clone https://github.com/liya-fitse/FUTURE_FS_02.git
 
 # Navigate to project directory
 cd FUTURE_FS_02
